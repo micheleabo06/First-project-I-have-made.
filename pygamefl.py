@@ -2,22 +2,21 @@ import pygame
 import random
 import sys
 import math
-import os # Kept for clarity, though no longer strictly needed for driver fix
+import os 
 
-# --- INITIAL SETUP ---
 # Removed all custom os.environ['SDL_VIDEODRIVER'] settings.
 # Allowing Pygame to use its default, native graphics backend for macOS.
 
 # Initialize Pygame
 pygame.init()
 
-# --- CONSTANTS (Adjusted for Graphics) ---
-# Your original game settings
+#  CONSTANTS (Adjusted for Graphics) 
+
 gridSize = 20 # Original constant name used
 TILE_SIZE = 40  # Each grid square will be 40x40 pixels for the display
-numberOfEnemies = 5 # Original constant name used
+numberOfEnemies = 5 #
 BASE_HEALTH_LOSS = 1
-ENEMY_DAMAGE = 8 # Changed damage to match your request (8)
+ENEMY_DAMAGE = 8 # damage  
 
 # Screen dimensions based on grid size
 # We add 50 pixels at the top for the status bar
@@ -37,7 +36,7 @@ COLOR_STATUS_BAR = (30, 30, 30)
 # Load Font
 FONT_STATUS = pygame.font.Font(None, 30)
 
-# --- GAME STATE VARIABLES ---
+# VARIABLES 
 playerHealth = 100
 playerPositionX = 0  # Row index
 playerPositionY = 0  # Column index
@@ -45,10 +44,9 @@ goalPosition = []
 enemyPositions = []
 game_over = False
 
-# --- CORE FUNCTIONS ---
+# CORE FUNCTIONS 
 
 def generate_initial_positions():
-    """Generates Goal and Enemy positions ensuring no overlaps."""
     global goalPosition, enemyPositions, playerPositionX, playerPositionY
     
     # 1. Ensure Player starts at 0, 0
@@ -76,7 +74,6 @@ def generate_initial_positions():
                 enemyPositions.append(new_pos)
 
 def draw_grid():
-    """Draws the grid lines and the background of the game area."""
     # Draw white background for the grid area
     SCREEN.fill(COLOR_WHITE, (0, 50, SCREEN_WIDTH, SCREEN_HEIGHT - 50))
     
@@ -86,7 +83,7 @@ def draw_grid():
         pygame.draw.line(SCREEN, COLOR_GRID, (0, i * TILE_SIZE + 50), (SCREEN_WIDTH, i * TILE_SIZE + 50), 1)
 
 def draw_elements():
-    """Draws the Player (T), Goal (O), and Enemies (W) onto the grid."""
+    
     
     # Font for drawing letters (T, O, W)
     font_char = pygame.font.Font(None, int(TILE_SIZE * 0.75))
@@ -112,7 +109,7 @@ def draw_elements():
     draw_char_on_tile("T", COLOR_PLAYER, playerPositionX, playerPositionY)
 
 def draw_status_bar(username):
-    """Draws the top status bar for health and instructions."""
+   # Draws the top status bar for health and instructions."""
     SCREEN.fill(COLOR_STATUS_BAR, (0, 0, SCREEN_WIDTH, 50))
     
     # Health Display
@@ -124,7 +121,7 @@ def draw_status_bar(username):
     SCREEN.blit(inst_text, (SCREEN_WIDTH - inst_text.get_width() - 10, 15))
 
 def final_message(text, color):
-    """Displays the end-of-game message centered on the screen."""
+    # Displays the end-of-game message centered on the screen."""
     overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
     overlay.set_alpha(200) 
     overlay.fill((0, 0, 0)) 
@@ -144,7 +141,7 @@ def final_message(text, color):
                 sys.exit()
 
 def check_game_state(username):
-    """Checks for win or loss conditions and handles damage/enemy removal."""
+    # check for win or loss condition
     global playerHealth, game_over, enemyPositions
     
     # Check for Enemy Collision (Damage & Removal)
@@ -171,7 +168,7 @@ def check_game_state(username):
         return
 
 def direction_to_move(dx, dy, username):
-    """Calculates the new position, moves player, and checks state."""
+    # Calculates the new position, moves player, and checks state.
     global playerPositionX, playerPositionY, playerHealth
     
     new_x = playerPositionX + dx
@@ -189,7 +186,7 @@ def direction_to_move(dx, dy, username):
         check_game_state(username) # Check state immediately after move
 
 
-# --- MAIN GAME LOOP ---
+# MAIN GAME LOOP
 
 def main_game_loop(username):
     global game_over
@@ -223,12 +220,12 @@ def main_game_loop(username):
                 if dx != 0 or dy != 0:
                     direction_to_move(dx, dy, username)
 
-        # --- 2. DRAWING PHASE ---
+        # DRAWING PHASE 
         draw_grid()
         draw_elements()
         draw_status_bar(username)
         
-        # --- 3. UPDATE SCREEN ---
+        # UPDATE SCREEN 
         pygame.display.flip()
         
         # Limits the game speed
@@ -239,7 +236,7 @@ def main_game_loop(username):
         pygame.quit()
         sys.exit()
 
-# --- STARTUP LOGIC (Kept console for username) ---
+#  STARTUP LOGIC 
 
 # username making - game starting                      
 username = ""
@@ -251,3 +248,4 @@ while len(username) < 3:
 print(f"Welcome, {username}! Starting graphical game...")
 # The game window opens here
 main_game_loop(username)
+
