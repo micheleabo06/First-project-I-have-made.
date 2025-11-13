@@ -4,8 +4,6 @@ import sys
 import math
 import os 
 
-# Removed all custom os.environ['SDL_VIDEODRIVER'] settings.
-# Allowing Pygame to use its default, native graphics backend for macOS.
 
 # Initialize Pygame
 pygame.init()
@@ -19,7 +17,7 @@ BASE_HEALTH_LOSS = 1
 ENEMY_DAMAGE = 8 # damage  
 
 # Screen dimensions based on grid size
-# We add 50 pixels at the top for the status bar
+# added 50 pixels at the top for the status bar
 SCREEN_WIDTH = gridSize * TILE_SIZE
 SCREEN_HEIGHT = gridSize * TILE_SIZE + 50 
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
